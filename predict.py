@@ -18,7 +18,7 @@ command_input.add_argument('--checkpoint', action="store", type=str, help= "to u
 command_input.add_argument('--category_names', action="store" , type=str , nargs='?' ,const="cat_to_name.json" , help = "json file with index of categories")
 args = command_input.parse_args()
 
-print (args.image_location, args.gpu, args.k_top, args.checkpoint, args.category_names) 
+#print (args.image_location, args.gpu, args.k_top, args.checkpoint, args.category_names) 
 
 #function to transfrom image to tensor from the image location
 def process_image(image_loc):
@@ -129,10 +129,10 @@ if args.gpu:
  
 K_probs, K_labels= predict(args.image_location, model_y, args.k_top)
 
-print ( "Probabilities of top {} predicted labels of the image ".format(args.k_top))
-print (K_probs)
-print ( "Top {} predicted lables ".format(args.k_top))
-print(K_labels)
+#print ( "Probabilities of top {} predicted labels of the image ".format(args.k_top))
+#print (K_probs)
+#print ( "Top {} predicted lables ".format(args.k_top))
+#print(K_labels)
 
 if args.category_names: 
     import json
@@ -140,7 +140,9 @@ if args.category_names:
         with open(args.category_names, 'r') as f:
             cat_to_name = json.load(f)
         flowerName=[cat_to_name[x] for x in K_labels]
-        print ("Names of top labels ")
-        print (flowerName)
+        print ("Names of flower is {}".format(flowerName[0]))
     except: 
-        print("check the json file " ) 
+        print("check the json file " )
+else: 
+    print ( "Top {} predicted lables ".format(args.k_top))
+    print(K_labels) 
